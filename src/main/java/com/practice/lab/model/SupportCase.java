@@ -1,5 +1,6 @@
 package com.practice.lab.model;
 
+import com.practice.lab.exception.InvalidCaseStateException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,5 +35,12 @@ public class SupportCase {
         this.description = description;
         this.status = CaseStatus.OPEN;
         this.createdAt = Instant.now();
+    }
+
+    public void changeStatus(CaseStatus newStatus) {
+        if (this.status == CaseStatus.CLOSED) {
+            throw new InvalidCaseStateException("Cannot change status of a closed Case");
+        }
+        this.status = newStatus;
     }
 }
