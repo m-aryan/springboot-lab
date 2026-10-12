@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
 
@@ -12,6 +13,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "cases")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class SupportCase {
 
     @Id
@@ -29,13 +31,6 @@ public class SupportCase {
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
-
-    public SupportCase(String title, String description) {
-        this.title = title;
-        this.description = description;
-        this.status = CaseStatus.OPEN;
-        this.createdAt = Instant.now();
-    }
 
     public void changeStatus(CaseStatus newStatus) {
         if (this.status == CaseStatus.CLOSED) {
